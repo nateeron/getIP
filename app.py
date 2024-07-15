@@ -1,7 +1,9 @@
-from fastapi import FastAPI, Request
+from flask import Flask, request, jsonify, redirect, url_for
 import requests
+from flask_cors import CORS
 
-app = FastAPI()
+app = Flask(__name__)
+CORS(app) 
 
 def get_location_from_ip(ip_address):
     try:
@@ -28,12 +30,17 @@ def get_location_from_ip(ip_address):
     except Exception as e:
         return {'error': str(e)}
 
-@app.get("/get-ip-location")
-async def get_ip_location(request: Request):
-    client_ip = request.client.host
-    location = get_location_from_ip(client_ip)
-    return location
+@app.route('/', methods=['GET'])
+def run():
+  
+    return "OK Run..."
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app,  port=5356)
+
+@app.route('/get', methods=['GET'])
+def get_ip_location():
+    client_ip = request.remote_addr
+    location = get_location_from_ip(client_ip)
+    return jsonify(location)
+
+if __name__ == '__main__':
+    app.run(debug=True)
