@@ -45,7 +45,10 @@ def get_ip_location():
         client_ip = request.remote_addr
   
     location = get_location_from_ip(client_ip)
-    return jsonify(location)
+    # Construct Google Maps URL
+    google_maps_url = f'https://www.google.com/maps/search/?api=1&query={location}'
+
+    return jsonify({'location': location, 'google_maps_url': google_maps_url})
 
 if __name__ == '__main__':
     app.run(debug=True)
