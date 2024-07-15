@@ -1,0 +1,8 @@
+Flask
+flask-cors
+
+gunicorn
+Flask-SocketIO
+requests
+requests-ntlm
+uvicorn
