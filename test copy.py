@@ -60,5 +60,5 @@ ip_addresses = get_ip_addresses()
 for ip in ip_addresses:
     print(ip)
 
-d = get_location_from_ip('172.23.128.1')
+d = get_location_from_ip('103.40.149.213')
 print(d)

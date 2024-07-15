@@ -38,9 +38,15 @@ def run():
 
 @app.route('/get', methods=['GET'])
 def get_ip_location():
-    client_ip = request.remote_addr
+        # Get the client IP address
+    if request.headers.getlist("X-Forwarded-For"):
+        client_ip = request.headers.getlist("X-Forwarded-For")[0]
+    else:
+        client_ip = request.remote_addr
+  
     location = get_location_from_ip(client_ip)
     return jsonify(location)
 
 if __name__ == '__main__':
     app.run(debug=True)
+
